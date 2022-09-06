@@ -15,15 +15,22 @@ class Snake:
         self.create_snake()
         self.head = self.snake_segments[0]
 
+    def add_segment(self):
+        new_snake_segment = Turtle(shape="square")
+        new_snake_segment.speed("fastest")
+        new_snake_segment.penup()
+        new_snake_segment.color("white")
+        self.snake_segments.append(new_snake_segment)
+        index = self.snake_segments.index(new_snake_segment) - 1
+        x_cor = self.snake_segments[index].xcor()
+        y_cor = self.snake_segments[index].ycor()
+        new_snake_segment.goto(x_cor, y_cor)
+
     def create_snake(self):
         for i in range(3):
-            new_snake_segment = Turtle(shape="square")
-            new_snake_segment.penup()
-            new_snake_segment.color("white")
-            new_snake_segment.back(i * 20)
-            self.snake_segments.append(new_snake_segment)
+            self.add_segment()
 
-    def shift_body(self):
+    def move(self):
         for seg_num in range(len(self.snake_segments) - 1, 0, -1):
             new_x = self.snake_segments[seg_num - 1].xcor()
             new_y = self.snake_segments[seg_num - 1].ycor()
